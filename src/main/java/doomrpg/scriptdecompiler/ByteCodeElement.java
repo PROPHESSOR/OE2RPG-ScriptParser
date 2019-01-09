@@ -119,7 +119,7 @@ public class ByteCodeElement {
         }
     }
 	
-	public String toACS(List<EventDef> lookupList, CoordList clist, List<Thing> things) {
+	public String toACS(List<EventDef> lookupList, CoordList clist, List<Thing> things, int scriptNum) {
 		String theIf = "";
 		theIf += "if(arg2 == " + lookupEventVar() + ") ";
 		switch(cmdid) {
@@ -167,6 +167,8 @@ public class ByteCodeElement {
 		}
 		case 40:
 			return theIf + "ScriptCall(\"NotebookAPI\", \"AddNotebookEntry\", getString(" + (arg1) + "));";
+		case 10:
+			return theIf + "ACS_NamedExecuteWait(\"lockwindow\", 0, getString(" + (((arg1 >> 8) & 0xFF)) + "), getString(" + (arg1 & 0xFF) + "), " + scriptNum + ");";
 		}
 		
 		return "/* Not Implemented */";

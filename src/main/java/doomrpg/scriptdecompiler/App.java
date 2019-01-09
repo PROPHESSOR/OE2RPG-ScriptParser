@@ -99,7 +99,7 @@ public class App {
 
 			while (it.hasNext()) {
 				ByteCodeElement bce = it.next();
-				script += ("    " + bce.toACS(events, cl, things) + " // " + bce.toIR(0) + "\n");
+				script += ("    " + bce.toACS(events, cl, things, sn) + " // " + bce.toIR(0) + "\n");
 			}
 			
 			for(int i = 0; i < cl.l.size(); i++) {
