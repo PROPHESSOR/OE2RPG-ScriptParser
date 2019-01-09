@@ -14,6 +14,110 @@ public class ByteCodeElement {
 		while((1 << (i++)) != in && i < 31);
 		return i;
 	}
+
+    private String getThingName(int id, int dead) {
+        switch(id) {
+            // Case list by PROPHESSOR
+            case 1:  return "DRRPAxe";
+            case 2:  return "FireExt";
+            case 3:  return "Shotgun";
+            case 4:  return "SuperShotgun";
+            case 5:  return "Chaingun";
+            case 6:  return "RocketLauncher";
+            case 7:  return "PlasmaRifle";
+            case 8:  return "BFG9000";
+            case 17: return "ZombiePvt"; 
+            case 18: return "ZombieLt"; 
+            case 19: return "ZombieCpt"; 
+            case 20: return "Hellhound"; 
+            case 21: return "Cerberus"; 
+            case 22: return "DemonWolf"; 
+            case 23: return "Troop"; 
+            case 24: return "Commando"; 
+            case 25: return "Assassin"; 
+            case 26: return "Impling"; 
+            case 27: return "DRRPImp"; 
+            case 28: return "ImpLord"; 
+            case 29: return "Phantom"; 
+            case 30: return "DRRPLostSoul"; 
+            case 31: return "Nightmare"; 
+            case 32: return "BullDemon"; 
+            case 33: return "Pinky"; 
+            case 34: return "Belphegor"; 
+            case 35: return "Malwrath"; 
+            case 36: return "DRRPCacodemon"; 
+            case 37: return "Wretched"; 
+            case 38: return "Beholder"; 
+            case 39: return "Rahovart"; 
+            case 40: return "DRRPPainElemental"; 
+            case 41: return "Ghoul"; 
+            case 42: return "Fiend"; 
+            case 43: return "DRRPRevenant"; 
+            case 44: return "Behemoth"; 
+            case 45: return "Mancubus"; 
+            case 46: return "Druj"; 
+            case 47: return "Infernis"; 
+            case 48: return "DRRPArchVile"; 
+            case 49: return "Apollyon"; 
+            case 50: return "Ogre"; 
+            case 51: return "DRRPHellKnight"; 
+            case 52: return "DRRPBaronOfHell"; 
+            case 53: return "DRRPCyberdemon"; 
+            case 54: return "Kronos";
+            case 62: return "DRRPBurnedSteelWall";
+            case 63: return "DRRPBrokenTubeWall";
+            case 65: return "DRRPRedCard";
+            case 66: return "DRRPBlueCard";
+            case 67: return "DRRPGreenCard";
+            case 71: return "DRRPWall";
+            case 73: return "DRRPYellowCard";
+            case 81: return "Balloon";
+            case 82: return "Balloons";
+            case 83: return "Cell";
+            case 84: return "Cells";
+            case 85: return "Shell";
+            case 86: return "Shells";
+            case 87: return "RocketAmmo";
+            case 88: return "RocketBox";
+            case 89: return "Cell";
+            case 90: return "Cells";
+            case 91: return "DRRPHealthBonus";
+            case 92: return "DRRPArmorBonus";
+            case 93: return "DRRPGreenArmor";
+            case 94: return "DRRPBlueArmor";
+            case 95: return "Credit";
+            case 96: return "GoldCredit";
+            case 99: return "SmallMedikit";
+            case 100:return "LargeMedikit";
+            case 101:return "InventorySoulsphere";
+            case 102:return "Berserker";
+            case 110:return "DogCollar";
+            case 128:return "DRRPLava";
+            case 129:return "DRRPFire";
+            case 130:return "DRRPBarrel";
+            case 131:return "Rod";
+            case 132:return "Sink";
+            case 133:return "Toilet";
+            case 134:return "DRRPChair";
+            case 135:return "YellowLamp";
+            case 138:return "Exit";
+            case 139:return "Wardrobe";
+            case 140:return "BlueLamp";
+            case 141:return "Table";
+            case 142:return "Bed";
+
+            case 145:return "Civilian";
+            case 146:return "Scientist";
+            case 147:return "Marine";
+            case 148:return "Scientist1";
+            case 149:return "DrGuerard";
+            case 150:return "Civilian1"; // Nadira
+            case 151:return "Civilian2";
+            case 152:return "Marine1";
+            // TODO: Add remaining decals
+            default: return "DRRPNull";
+        }
+    }
 	
 	public String toACS(List<EventDef> lookupList, CoordList clist, List<Thing> things) {
 		String theIf = "";
@@ -59,7 +163,7 @@ public class ByteCodeElement {
 		case 7:
 		{
 			Thing thing = things.get(arg1 & 0xFF);
-			return theIf + "SpawnForced(getThingName(" + thing.type + ", " + ((arg1 >> 8) & 0xFF) + "), getMediumX(" + thing.x + "), getMediumY(" + thing.y + "), 0);";
+			return theIf + "SpawnForced(\"" + getThingName(thing.type, ((arg1 >> 8) & 0xFF)) + "\", getMediumX(" + thing.x + "), getMediumY(" + thing.y + "), 0);";
 		}
 		case 40:
 			return theIf + "ScriptCall(\"NotebookAPI\", \"AddNotebookEntry\", getString(" + (arg1) + "));";
