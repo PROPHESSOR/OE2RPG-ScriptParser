@@ -123,6 +123,8 @@ public class ByteCodeElement {
 		String theIf = "";
 		theIf += "if(arg2 == " + lookupEventVar() + ") ";
 		switch(cmdid) {
+        case 1: // Teleport
+            return theIf + "ACS_Execute(3011, 0, getMediumX(" + (arg1 & 0xFF) + "), getMediumY(" + ((arg1 >> 8) & 0xFF) + "), " + ((arg1 >> 20) & 0x3FF) + ");";
 		case 26:
 		case 8:
 			return theIf + "ACS_NamedExecuteWait(\"window\", 0, getString(" + arg1 + "));";
@@ -165,6 +167,13 @@ public class ByteCodeElement {
 			Thing thing = things.get(arg1 & 0xFF);
 			return theIf + "SpawnForced(\"" + getThingName(thing.type, ((arg1 >> 8) & 0xFF)) + "\", getMediumX(" + thing.x + "), getMediumY(" + thing.y + "), 0);";
 		}
+        case 25: // Explode
+        {
+            Thing thing = things.get(arg1 & 0xFF);
+            return theIf + "SpawnForced(\"Explosion\", getMediumX(" + thing.x + "), getMediumY(" + thing.y + "), 0);";
+        }
+        case 29: // Earth quake
+            return theIf + "ACS_Execute(3008, 0, " + (arg1 & 0xFFFFFF) + ", " + ((arg1 >> 24) & 0xFF) + ");";
 		case 40:
 			return theIf + "ScriptCall(\"NotebookAPI\", \"AddNotebookEntry\", getString(" + (arg1) + "));";
 		case 10:

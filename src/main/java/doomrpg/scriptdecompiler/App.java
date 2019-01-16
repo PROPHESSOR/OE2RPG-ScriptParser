@@ -85,8 +85,30 @@ public class App {
 		/*Map<Integer, Integer> json = new HashMap<>();
 		JSONParser parser = new JSONParser();
 		Map<String, Integer> obj = (JSONObject) parser.parse(new InputStreamReader(new FileInputStream("things.json")));*/
-		
+
 		System.out.println("#include \"zcommon.acs\"");
+
+        System.out.println("");
+
+        System.out.println("#define OFFSETX 0");
+        System.out.println("#define OFFSETY 0");
+
+        System.out.println("");
+
+        System.out.println(
+            "function str getString(int id) {\n" +
+            "    return StrParam(l:StrParam(s:\"DRRP_PREFIX_\", i:id));\n" +
+            "}\n\n" +
+
+            "function fixed getMediumX(int x) {\n" +
+            "    return (-OFFSETX + x * 8) << 16;\n" +
+            "}\n\n" +
+
+            "function fixed getMediumY(int y) {\n" +
+            "    return (2048 - OFFSETY - y * 8) << 16;\n" +
+            "}\n\n// Scripts\n"
+        );
+		
 		
 		for (EventDef event : events) {
 			System.out.println("script " + sn + " (int arg0, int arg1, int arg2) { //" + event.toIR());
